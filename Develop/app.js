@@ -1,8 +1,9 @@
 // const Manager = require("./lib/Manager");
 // const Engineer = require("./lib/Engineer");
 // const Intern = require("./lib/Intern");
+const Employee = require("./lib/Employee");
 const inquirer = require("inquirer");
-// const path = require("path");
+const path = require("path");
 const fs = require("fs");
 
 // const OUTPUT_DIR = path.resolve(__dirname, "output");
@@ -10,103 +11,93 @@ const fs = require("fs");
 
 // const render = require("./lib/htmlRenderer");
 
-const managerQuestions = [
-    {
-        name: "welcome",
-        message: "Welcome to your Team Roster Builder! Let's get started!",
-    },
-    { 
-        type: "input",
-        name: "managerName",
-        message: "Let's start with the manager. What is their name?",
-
-    },
-    {
-        type: "input",
-        name: "managerId",
-        message: "What is the manager's employee id?",
-    },
-    {
-        type: "input",
-        name: "managerEmail",
-        message: "What is the manager's email address?",
-    },
-    {
-        type: "input",
-        name: "managerOffice",
-        message: "What is the manager's office number?",
-    },
-    {
-        type: "confirm",
-        name: "next",
-        message: "The manager has been added to the roster. Would you like to add another employee?",
-    },
-];
-
-const engineerQuestions = [
-    { 
-        type: "input",
-        name: "engineerName",
-        message: "Great! Let's add an engineer to the roster! What is their name?",
-
-    },
-    {
-        type: "input",
-        name: "engineerId",
-        message: "What is the engineer's employee id?",
-    },
-    {
-        type: "input",
-        name: "engineerEmail",
-        message: "What is the engineer's email address?",
-    },
-    {
-        type: "input",
-        name: "engineerGithub",
-        message: "What is the engineer's GitHub username?",
-
-    },
-    {
-        type: "confirm",
-        name: "next2",
-        message: "The engineer has been added to the roster. Would you like to add another employee?",
-    },
-
-],
-
-const internQuestions = [
-    { 
-        type: "input",
-        name: "internName",
-        message: "Great! Let's add an intern to the roster! What is their name?",
-
-    },
-    {
-        type: "input",
-        name: "internId",
-        message: "What is the intern's employee id?",
-    },
-    {
-        type: "input",
-        name: "internEmail",
-        message: "What is the intern's email address?",
-    },
-    {
-        type: "input",
-        name: "internSchool",
-        message: "What school does the intern attend?",
-
-    },
-    {
-        type: "confirm",
-        name: "next2",
-        message: "The engineer has been added to the roster. Would you like to add another employee?",
-    },
-
-],
-
-
 // Write code to use inquirer to gather information about the development team members,
+inquirer.prompt([
+    {
+        type: "list",
+        name: "role",
+        message: `Let's add an employee. What is their role?`,
+        choices: ["manager", "engineer", "intern"],
+    },
+    { 
+        type: "input",
+        name: "name",
+        message: "What is the their name?",
+        default: "Type name here.",
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "What is their employee id?",
+        default: "Type id here.",
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is their email address?",
+        default: "Type email address here.",
+        // validate: validateEmail(),
+    },
+]).then((emp) => {
+    console.log(emp);
+    const newEmployee = new Employee(emp.name, emp.id, emp.email, emp.role);
+});
+        
+
+
+// switch(role)
+//     {
+//         type: "confirm",
+//         name: "next2",
+//         message: `${this.name} has been added to the roster as a ${this.role}. Would you like to add another employee?`,
+//     },
+// ],
+
+// inquirer.prompt(employeeQuestions) 
+
+// const managerQuestions = [
+//     {
+//         type: "input",
+//         name: "officeNum",
+//         message: `What is ${this.name}'s office number?`,
+//         default: "Type office number here.",
+//     },
+// ];
+
+// const engineerQuestions = [
+//     {
+//         type: "input",
+//         name: "gitHub",
+//         message: `What is ${this.name}'s GitHub username?`,
+//         default: "Type GitHub username here.",
+
+//     },
+// ],
+
+// const internQuestions = [
+//     {
+//         type: "input",
+//         name: "school",
+//         message: `What school does ${this.name} attend?`,
+//         default: "Type school here.",
+
+//     },
+// ],
+
+// function writeEmployee() {
+//     inquirer.prompt(employeeQuestions)
+//     .then((data) => {
+//         const employee = {
+//             empName : data.name,
+//             id : data.id,
+//             email : data.email
+//         }
+//         console.log(employee);
+//         return employee;
+//     })
+// }
+// writeEmployee()
+
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 // After the user has input all employees desired, call the `render` function (required

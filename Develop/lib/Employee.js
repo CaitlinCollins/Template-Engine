@@ -1,20 +1,22 @@
 // TODO: Write code to define and export the Employee class
 class Employee {
     contructor(empName, id, email) {
-        this.empName = empName;
+        this.name = empName;
         this.id = id; 
         this.email = email; 
     }
-    getName(empName) {
-
+    getName() {
+       return this.name;
     }
-    getId(id) {
-
+    getId() {
+        return this.id;
     }
-    getEmail(email) {
+    getEmail() {
+        return this.email;
 
     }
     getRole() {
-        return "Employee";
+        const role = "Employee"
+        return role;
     }
 }
