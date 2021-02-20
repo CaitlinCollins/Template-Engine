@@ -21,7 +21,7 @@ inquirer.prompt([
     },
     { 
         type: "input",
-        name: "name",
+        name: "empName",
         message: "What is the their name?",
         default: "Type name here.",
     },
@@ -40,7 +40,8 @@ inquirer.prompt([
     },
 ]).then((emp) => {
     console.log(emp);
-    const newEmployee = new Employee(emp.name, emp.id, emp.email, emp.role);
+    const newEmployee = new Employee(empName, id, email, role);
+    console.log(newEmployee);
 });
         
 
