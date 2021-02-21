@@ -11,7 +11,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
-const newEmployees = [];
+const employees = [];
 
 async function questions() {
 await inquirer.prompt([
@@ -53,7 +53,7 @@ if (emp.role === "engineer") {
     ]).then((eng) => {
         // and to create objects for each team member (using the correct classes as blueprints!)
         const newEngineer = new Engineer(emp.name, emp.id, emp.email, eng.gitHub);
-        newEmployees.push(newEngineer);
+        employees.push(newEngineer);
         console.log(newEngineer);
     })
 }
@@ -68,7 +68,7 @@ if (emp.role === "engineer") {
     ]).then((man) => {
         // and to create objects for each team member (using the correct classes as blueprints!)
         const newManager = new Manager(emp.name, emp.id, emp.email, man.officeNum);
-        newEmployees.push(newManager);
+        employees.push(newManager);
         console.log(newManager);
     })
 }
@@ -83,7 +83,7 @@ if (emp.role === "engineer") {
     ]).then((int) => {
         // and to create objects for each team member (using the correct classes as blueprints!)
         const newIntern = new Intern (emp.name, emp.id, emp.email, int.school);
-        newEmployees.push(newIntern);
+        employees.push(newIntern);
         console.log(newIntern);
     })
     }  
@@ -98,17 +98,27 @@ if (emp.role === "engineer") {
             questions();
         }
         else {
-            console.log(newEmployees);
+            console.log(employees);
+            render(employees);
             return;
         }
     })
 });
 };
 
+function writeHtml(){
+    fs.writeFile("../output/team.html", render(employees), (err)  => 
+    err ? console.log(err) : console.log("Team.html written!"));
+};
+
 async function init() {
 await questions();
+writeHtml();
 }
 init();
+
+
+
 
 
 // After the user has input all employees desired, call the `render` function (required
