@@ -52,7 +52,7 @@ if (emp.role === "engineer") {
          },
     ]).then((eng) => {
         // and to create objects for each team member (using the correct classes as blueprints!)
-        const newEngineer = new Engineer(emp.name, emp.id, emp.email, eng.gitHub);
+        const newEngineer = new Engineer(emp.name, emp.id, emp.email, eng.github);
         employees.push(newEngineer);
         console.log(newEngineer);
     })
@@ -67,7 +67,7 @@ if (emp.role === "engineer") {
              },
     ]).then((man) => {
         // and to create objects for each team member (using the correct classes as blueprints!)
-        const newManager = new Manager(emp.name, emp.id, emp.email, man.officeNum);
+        const newManager = new Manager(emp.name, emp.id, emp.email, man.officeNumber);
         employees.push(newManager);
         console.log(newManager);
     })
