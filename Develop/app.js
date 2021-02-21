@@ -5,13 +5,16 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-// const OUTPUT_DIR = path.resolve(__dirname, "output");
-// const outputPath = path.join(OUTPUT_DIR, "team.html");
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-// const render = require("./lib/htmlRenderer");
+const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
-inquirer.prompt([
+const newEmployees = [];
+
+async function questions() {
+await inquirer.prompt([
     {
         type: "list",
         name: "role",
@@ -37,65 +40,65 @@ inquirer.prompt([
         default: "Type email address here.",
         // validate: validateEmail(),
     },
-]).then((emp) => {
+]).then( async function(emp) {
 
 if (emp.role === "engineer") {
-    inquirer.prompt([
+    await inquirer.prompt([
         {
             type: "input",
             name: "gitHub",
             message: `What is their GitHub username?`,
             default: "Type GitHub username here.",
          },
-        {
-            type: "confirm",
-            name: "next2",
-            message: `${emp.name} has been added to the roster as a ${emp.role}. Would you like to add another employee?`,
-        }
     ]).then((eng) => {
-        const newEngineer = new Engineer(emp.name, emp.id, emp.email, eng.gitHub);
+        const newEngineer = new Engineer(emp.role, emp.name, emp.id, emp.email, eng.gitHub);
+        newEmployees.push(newEngineer);
         console.log(newEngineer);
     })
 }
     else if (emp.role === "manager") {
-        inquirer.prompt([
+        await inquirer.prompt([
             {
                 type: "input",
                 name: "officeNum",
                 message: `What is their office number?`,
                 default: "Type office number here.",
              },
-            {
-                type: "confirm",
-                name: "next2",
-                message: `${emp.name} has been added to the roster as a ${emp.role}. Would you like to add another employee?`,
-            },
     ]).then((man) => {
-        const newManager = new Manager(emp.name, emp.id, emp.email, man.officeNum);
+        const newManager = new Manager(emp.role, emp.name, emp.id, emp.email, man.officeNum);
+        newEmployees.push(newManager);
         console.log(newManager);
     })
 }
     else if (emp.role === "intern") {
-        inquirer.prompt([
+        await inquirer.prompt([
             {
                 type: "input",
                 name: "school",
                 message: `What school do they attend?`,
                 default: "Type school here.",
              },
-            {
-                type: "confirm",
-                name: "next2",
-                message: `${emp.name} has been added to the roster as a ${emp.role}. Would you like to add another employee?`,
-            },
     ]).then((int) => {
-        const newIntern = new Intern (emp.name, emp.id, emp.email, int.school);
+        const newIntern = new Intern (emp.role, emp.name, emp.id, emp.email, int.school);
+        newEmployees.push(newIntern);
         console.log(newIntern);
     })
-    }
-
+    }  
+    await inquirer.prompt([
+        {
+            type: "confirm",
+            name: "next2",
+            message: `${emp.name} has been added to the roster as a ${emp.role}. Would you like to add another employee?`,
+        },
+    ])
 });
+};
 
+async function init() {
+await questions();
+console.log(newEmployees);
+}
+init();
 
 // and to create objects for each team member (using the correct classes as blueprints!)
 
