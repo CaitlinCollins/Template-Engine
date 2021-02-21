@@ -10,6 +10,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+// const ValidateEmail = require("./lib/emailValidate");
+
 // Write code to use inquirer to gather information about the development team members,
 const employees = [];
 
@@ -38,7 +40,7 @@ await inquirer.prompt([
         name: "email",
         message: "What is their email address?",
         default: "Type email address here.",
-        // validate: validateEmail(),
+        // validate: ValidateEmail(emp.email),
     },
 ]).then( async function(emp) {
 
@@ -46,7 +48,7 @@ if (emp.role === "engineer") {
     await inquirer.prompt([
         {
             type: "input",
-            name: "gitHub",
+            name: "github",
             message: `What is their GitHub username?`,
             default: "Type GitHub username here.",
          },
@@ -61,7 +63,7 @@ if (emp.role === "engineer") {
         await inquirer.prompt([
             {
                 type: "input",
-                name: "officeNum",
+                name: "officeNumber",
                 message: `What is their office number?`,
                 default: "Type office number here.",
              },
