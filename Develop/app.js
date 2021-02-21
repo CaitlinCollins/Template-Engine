@@ -51,7 +51,8 @@ if (emp.role === "engineer") {
             default: "Type GitHub username here.",
          },
     ]).then((eng) => {
-        const newEngineer = new Engineer(emp.role, emp.name, emp.id, emp.email, eng.gitHub);
+        // and to create objects for each team member (using the correct classes as blueprints!)
+        const newEngineer = new Engineer(emp.name, emp.id, emp.email, eng.gitHub);
         newEmployees.push(newEngineer);
         console.log(newEngineer);
     })
@@ -65,7 +66,8 @@ if (emp.role === "engineer") {
                 default: "Type office number here.",
              },
     ]).then((man) => {
-        const newManager = new Manager(emp.role, emp.name, emp.id, emp.email, man.officeNum);
+        // and to create objects for each team member (using the correct classes as blueprints!)
+        const newManager = new Manager(emp.name, emp.id, emp.email, man.officeNum);
         newEmployees.push(newManager);
         console.log(newManager);
     })
@@ -79,7 +81,8 @@ if (emp.role === "engineer") {
                 default: "Type school here.",
              },
     ]).then((int) => {
-        const newIntern = new Intern (emp.role, emp.name, emp.id, emp.email, int.school);
+        // and to create objects for each team member (using the correct classes as blueprints!)
+        const newIntern = new Intern (emp.name, emp.id, emp.email, int.school);
         newEmployees.push(newIntern);
         console.log(newIntern);
     })
@@ -87,20 +90,26 @@ if (emp.role === "engineer") {
     await inquirer.prompt([
         {
             type: "confirm",
-            name: "next2",
+            name: "plus",
             message: `${emp.name} has been added to the roster as a ${emp.role}. Would you like to add another employee?`,
         },
-    ])
+    ]).then((add) => {
+        if (add.plus === true) {
+            questions();
+        }
+        else {
+            console.log(newEmployees);
+            return;
+        }
+    })
 });
 };
 
 async function init() {
 await questions();
-console.log(newEmployees);
 }
 init();
 
-// and to create objects for each team member (using the correct classes as blueprints!)
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
@@ -112,12 +121,4 @@ init();
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
 
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
 
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
