@@ -1,7 +1,6 @@
-// const Manager = require("./lib/Manager");
-// const Engineer = require("./lib/Engineer");
-// const Intern = require("./lib/Intern");
-const Employee = require("./lib/Employee");
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
@@ -21,7 +20,7 @@ inquirer.prompt([
     },
     { 
         type: "input",
-        name: "empName",
+        name: "name",
         message: "What is the their name?",
         default: "Type name here.",
     },
@@ -39,65 +38,64 @@ inquirer.prompt([
         // validate: validateEmail(),
     },
 ]).then((emp) => {
-    console.log(emp);
-    const newEmployee = new Employee(empName, id, email, role);
-    console.log(newEmployee);
+
+if (emp.role === "engineer") {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "gitHub",
+            message: `What is their GitHub username?`,
+            default: "Type GitHub username here.",
+         },
+        {
+            type: "confirm",
+            name: "next2",
+            message: `${emp.name} has been added to the roster as a ${emp.role}. Would you like to add another employee?`,
+        }
+    ]).then((eng) => {
+        const newEngineer = new Engineer(emp.name, emp.id, emp.email, eng.gitHub);
+        console.log(newEngineer);
+    })
+}
+    else if (emp.role === "manager") {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "officeNum",
+                message: `What is their office number?`,
+                default: "Type office number here.",
+             },
+            {
+                type: "confirm",
+                name: "next2",
+                message: `${emp.name} has been added to the roster as a ${emp.role}. Would you like to add another employee?`,
+            },
+    ]).then((man) => {
+        const newManager = new Manager(emp.name, emp.id, emp.email, man.officeNum);
+        console.log(newManager);
+    })
+}
+    else if (emp.role === "intern") {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "school",
+                message: `What school do they attend?`,
+                default: "Type school here.",
+             },
+            {
+                type: "confirm",
+                name: "next2",
+                message: `${emp.name} has been added to the roster as a ${emp.role}. Would you like to add another employee?`,
+            },
+    ]).then((int) => {
+        const newIntern = new Intern (emp.name, emp.id, emp.email, int.school);
+        console.log(newIntern);
+    })
+    }
+
 });
-        
 
-
-// switch(role)
-//     {
-//         type: "confirm",
-//         name: "next2",
-//         message: `${this.name} has been added to the roster as a ${this.role}. Would you like to add another employee?`,
-//     },
-// ],
-
-// inquirer.prompt(employeeQuestions) 
-
-// const managerQuestions = [
-//     {
-//         type: "input",
-//         name: "officeNum",
-//         message: `What is ${this.name}'s office number?`,
-//         default: "Type office number here.",
-//     },
-// ];
-
-// const engineerQuestions = [
-//     {
-//         type: "input",
-//         name: "gitHub",
-//         message: `What is ${this.name}'s GitHub username?`,
-//         default: "Type GitHub username here.",
-
-//     },
-// ],
-
-// const internQuestions = [
-//     {
-//         type: "input",
-//         name: "school",
-//         message: `What school does ${this.name} attend?`,
-//         default: "Type school here.",
-
-//     },
-// ],
-
-// function writeEmployee() {
-//     inquirer.prompt(employeeQuestions)
-//     .then((data) => {
-//         const employee = {
-//             empName : data.name,
-//             id : data.id,
-//             email : data.email
-//         }
-//         console.log(employee);
-//         return employee;
-//     })
-// }
-// writeEmployee()
 
 // and to create objects for each team member (using the correct classes as blueprints!)
 
