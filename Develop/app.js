@@ -10,7 +10,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-// const ValidateEmail = require("./lib/emailValidate");
+const express = require('express')
+const app = express()
 
 // Write code to use inquirer to gather information about the development team members,
 const employees = [];
@@ -40,7 +41,6 @@ await inquirer.prompt([
         name: "email",
         message: "What is their email address?",
         default: "Type email address here.",
-        // validate: ValidateEmail(emp.email),
     },
 ]).then( async function(emp) {
 
