@@ -41,11 +41,11 @@
   
   ### Input 
   
-  ![teambuild1](https://github.com/CaitlinCollins/Template-Engine/blob/assets/teambuild1.png)
+  ![teambuild1](https://github.com/CaitlinCollins/Template-Engine/blob/main/Assets/teambuild1.png)
   
   ### Results
   
-  ![teambuild2](https://github.com/CaitlinCollins/Template-Engine/blob/assets/teambuild2.png)
+  ![teambuild2](https://github.com/CaitlinCollins/Template-Engine/blob/main/Assets/teambuild2.png)
 
   ## License
   This project is protected under the MIT license.
